@@ -1,6 +1,5 @@
 const fs = require('fs');
-const { trelloToModel } = require('../lib/trello');
-
+const { trelloToModel } = require('../src/api/trello');
 
 it('should get a test file', () => {
     const trelloRaw = readFile('__resources__/trello.raw.json');
@@ -150,11 +149,6 @@ describe('Parse Trello to Model', () => {
     });
 });
 
-function readResource(fileName) {
-    return readFile('__resources__/' + fileName);
-}
+const readResource = (fileName) => readFile('__resources__/' + fileName);
 
-function readFile(fileName) {
-    const fileContent = fs.readFileSync(__dirname + '/' + fileName);
-    return JSON.parse(fileContent);
-}
+const readFile = (fileName) =>  JSON.parse(fs.readFileSync(__dirname + '/' + fileName));

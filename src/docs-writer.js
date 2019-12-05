@@ -2,7 +2,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const writeAsBook = (outputDir) => {
+const writeAsDoc = (outputDir) => {
     return (input) => {
         input.pages.forEach(writeModelAsBookSheet(outputDir));
         writeSummary(input, outputDir);
@@ -75,5 +75,5 @@ function writeRaw(jsonModel) {
 
 module.exports = {
     rawer,
-    writeAsBook
+    writeAsDoc
 };

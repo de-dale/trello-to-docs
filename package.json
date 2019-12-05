@@ -2,13 +2,13 @@
   "name": "@de-dale/trello-to-docs",
   "version": "0.0.1",
   "description": "Script for importing Trello as book, compatible with GitBook application.",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "test": "jest"
   },
   "bin": {
-    "@de-dale/trello-to-docs": "bin/trello-to-docs.js",
-    "trello-to-docs": "bin/trello-to-docs.js"
+    "@de-dale/trello-to-docs": "bin/trello-to-docs",
+    "trello-to-docs": "bin/trello-to-docs"
   },
   "publishConfig": {
     "access": "public"
@@ -20,11 +20,11 @@
     "url": "git+https://github.com/de-dale/trello-to-docs.git"
   },
   "devDependencies": {
-    "jest": "^24.8.0"
+    "jest": "^24.9.0"
   },
   "dependencies": {
     "axios": "^0.19.0",
-    "commander": "^3.0.0",
+    "commander": "^4.0.0",
     "esm": "^3.2.25"
   },
   "keywords": [

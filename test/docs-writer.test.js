@@ -1,10 +1,15 @@
 const fs = require('fs');
-const { writeAsBook } = require('../lib/book-writer');
+const { writeAsDoc } = require('../src/docs-writer');
 
 describe('Write Model As Book', () => {
 
+    const testFolder = 'test/tmp';
 
-    it('should write model as book', () => {
+    afterAll(() => {
+        fs.rmdirSync(testFolder, { recursive: true });
+    });
+
+    it('should write model as doc', () => {
         let model = readResource('simple-piped-with-quotes.card.json');
         model = {
             'pages': [
@@ -27,16 +32,11 @@ describe('Write Model As Book', () => {
                 } ]
         };
 
-        writeAsBook('test/tmp')(model)
+        writeAsDoc(testFolder)(model)
     });
 
 });
 
-function readResource(fileName) {
-    return readFile('__resources__/' + fileName);
-}
+const readResource = (fileName) => readFile('__resources__/' + fileName);
 
-function readFile(fileName) {
-    const fileContent = fs.readFileSync(__dirname + '/' + fileName);
-    return JSON.parse(fileContent);
-}
+const readFile = (fileName) => JSON.parse(fs.readFileSync(__dirname + '/' + fileName));

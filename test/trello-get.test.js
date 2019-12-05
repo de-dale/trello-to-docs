@@ -1,4 +1,4 @@
-const { getTrelloBoard } = require('../lib/trello');
+const { getTrelloBoard } = require('../src/api/trello');
 
 const axios = require('axios');
 jest.mock('axios');

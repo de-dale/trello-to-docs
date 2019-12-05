@@ -1,9 +1,7 @@
 'use strict';
 const axios = require('axios');
 
-function getTrelloBoard(key, token, board) {
-console.log("GEZT")
-    return axios({
+const getTrelloBoard = (key, token, board) => axios({
         method: 'get',
         url: 'https://api.trello.com/1/search',
         params: {
@@ -17,33 +15,22 @@ console.log("GEZT")
         }
     })
     .then(response => response.data)
-    .catch(e => console.error("EXCEPTIONS", e));
-}
+    .catch(e => console.error("EXCEPTIONS", e.data));
 
-function gitbookName(name) {
-    // iconv -f UTF-8 -t ASCII//TRANSLIT |
-    // sed -e 's/\(.*\)/\L\1/
-    // s/|/\//g
-    // s/[ /]\+/-/g
-    //     s/[^a-z0-9+-]//g'
-    return name
-        .toLowerCase()
-        .normalize('NFD')
-        .replace(/[^a-z- ]/g, '')
-        .replace(/\s+/g, '-')
-        .replace(/--+/g, '-');
-}
+const gitbookName = name => name
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[^a-z- ]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/--+/g, '-');
 
-const trelloToModel = (trello) => {
-    const pages = trello.cards
-        .map(cardToModel)
-        .sort(sortByPosition)
-        .map(withFileName)
-        .reduce(recursiveMergePages, []);
-    return {
-        pages: pages
-    };
-};
+const trelloToModel = trello => ({
+    pages: trello.cards
+           .map(cardToModel)
+           .sort(sortByPosition)
+           .map(withFileName)
+           .reduce(recursiveMergePages, [])
+});
 
 const cardToModel = (card) => ({
     ...toModel(card.list),
@@ -60,7 +47,7 @@ const toModel = ({ name, desc: description = '', pos: position, shortUrl = '' })
 
 const trelloUrlToId = (url) => url.replace('https://trello.com/c/', '');
 
-function foldChildren(parent, pages) {
+const foldChildren= (parent, pages) => {
     let _parent = {
         ...parent,
         pages: []
